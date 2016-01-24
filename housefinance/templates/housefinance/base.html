@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %}WOSS 家庭财务管理{% endblock %}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'housefinance/css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/font-awesome.min.css' %}">
+    {#    <link rel="stylesheet" type="text/css" href="{% static 'account/css/ace.min.css' %}">#}
+    <link rel="stylesheet" type="text/css" href="{% static 'housefinance/css/ffm.css' %}">
+    <script src="{% static 'housefinance/js/bootstrap/jquery.min.js' %}"></script>
+    <script src="{% static 'housefinance/js/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'housefinance/js/ffm.js' %}"></script>
+    {% block mycss %}
+    {% endblock %}
+</head>
+<body>
+<div class="navbar navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header pull-left">
+            <i class="glyphicon glyphicon-piggy-bank orange navbar-brand navbar-brand-padding"></i>
+            <a class="navbar-brand navbar-brand-padding" href="#"><span class="red">WOSS</span> 家庭财务管理</a>
+        </div>
+        <div class="navbar-header pull-right" role="navigation">
+            <ul class="nav nav-pills">
+                <li id="user_menu" class="dropdown-hover dropdown-100">
+                    <a><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;{{ user.last_name }},&nbsp;{{ user.first_name }}
+                    </a>
+                    {#                    <div id="user_menu_dropdown" class="test-dropdown">this is a tester</div>#}
+                    <ul class="dropdown-menu dropdown-100 dropdown-menu-full-width">
+                        <li><a href="{% url 'account:logout' %}"><i class="glyphicon glyphicon-off"></i> 注销</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="main-nav nav nav-tabs nav-app">
+                <li>
+                    <a href="{% url 'ffm:index' %}">
+                        <i class="glyphicon glyphicon-th-large"></i>
+                        首页
+                    </a>
+                </li>
+                <li>
+                    <a href="#sysSetting" class="supermenu collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-check"></i>
+                        系统管理
+                        <span class="pull-right glyphicon glyphicon-collapse-toggle"></span>
+                    </a>
+                    <ul id="sysSetting" class="nav submenu collapse">
+                        <li><a href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;用户管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>&nbsp;菜单管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>&nbsp;角色管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#navAccountingDocumentManagement" class="supermenu collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        记账凭证管理
+                        <span class="pull-right glyphicon glyphicon-collapse-toggle"></span>
+                    </a>
+                    <ul id="navAccountingDocumentManagement" class="nav submenu collapse">
+                        <li><a href="{% url 'ffm:acc_doc_index' %}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;记账凭证列表</a></li>
+                        <li><a href="{% url 'ffm:acc_doc_quick_add_spend' %}"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;快速记账 消费</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-bell"></i>&nbsp;记账凭证结算 </a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#navReportCenter" class="supermenu collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-signal"></i>
+                        报表中心
+                        <span class="pull-right glyphicon glyphicon-collapse-toggle"></span>
+                    </a>
+                    <ul id="navReportCenter" class="nav submenu collapse">
+                        <li><a href="{% url 'ffm:chart_spend' %}"><i class="glyphicon glyphicon-stats"></i>&nbsp;支出统计
+                        </a></li>
+                        <li>
+                            <a href="{% url 'ffm:chart_spend_monthly' %}"><i class="glyphicon glyphicon-stats"></i>&nbsp;月支出统计</a>
+                        </li>
+                        <li><a href="{% url 'ffm:fibonacci' 100 %}"><i class="glyphicon glyphicon-stats"></i>&nbsp;Fibonacci
+                        </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% block myjs %}
+{% endblock %}
+</body>
+</html>

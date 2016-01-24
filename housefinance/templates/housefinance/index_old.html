@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>首页 - FFM</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'housefinance/css/bootstrap/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'housefinance/css/ffm.css' %}">
+</head>
+<body>
+<div class="navbar navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">WOSS 家庭财务管理系统</a>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2">
+            <ul class="main-nav nav nav-tabs nav-app">
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-th-large"></i>
+                        首页
+                    </a>
+                </li>
+                <li>
+                    <a href="#sysSetting" class="supermenu collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-check"></i>
+                        系统管理
+                        <span class="pull-right glyphicon glyphicon-collapse-toggle"></span>
+                    </a>
+                    <ul id="sysSetting" class="nav submenu collapse">
+                        <li><a href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;用户管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>&nbsp;菜单管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>&nbsp;角色管理</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-edit"></i>&nbsp;修改密码</a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>&nbsp;日志查看</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#navAccountingDocumentManagement" class="supermenu collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-list-alt"></i>
+                        记账凭证管理
+                        <span class="pull-right glyphicon glyphicon-collapse-toggle"></span>
+                    </a>
+                    <ul id="navAccountingDocumentManagement" class="nav submenu collapse">
+                        <li><a href="#"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;记账凭证列表 </a></li>
+                        <li><a href="#"><i class="glyphicon glyphicon-bell"></i>&nbsp;记账凭证结算 </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                记账凭证列表
+                            </div>
+                        </div>
+                        <div class="panel-body">记账凭证能有效帮助你记录日常的财务状况，并在计算报表的时候会使用到</div>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>日期</th>
+                                <th>成员</th>
+                                <th>备注</th>
+                            </tr>
+                            </thead>
+                            {% if account_doc_list %}
+                                <tbody>
+                                {% for account_doc in account_doc_list %}
+                                    <tr>
+                                        <td><a href="{% url 'ffm:detail' account_doc.id %}">{{ account_doc.id }}</a>
+                                        </td>
+                                        <td>{{ account_doc.creation_date }}</td>
+                                        <td>{{ account_doc.creator }}</td>
+                                        <td>{{ account_doc.comment }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            {% else %}
+                                <p class="alert-info">没有记账凭证存在</p>
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'housefinance/js/bootstrap/jquery.min.js' %}"></script>
+<script src="{% static 'housefinance/js/bootstrap/bootstrap.min.js' %}"></script>
+</body>
+</html>

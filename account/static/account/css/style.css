@@ -1,0 +1,58 @@
+body{
+    margin:0;
+    padding: 0;
+    height: 100%;
+    font-family: arial;
+    font-size: 12px;
+    background: #f7f7f7;
+    overflow-x: hidden;
+    color: #3B3E40;
+    line-height: 1px;
+}
+
+body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
+
+.font-brush-std{
+    font-family: "Brush Script Std", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+input textarea{
+    padding:10px;
+    font-size: 12px;
+    font-family: Arial;
+    color:#606060;
+    border:1px solid #e3e3e3;
+    background: #fff;
+    width: 100%;
+    margin: 0 0 15px 0;
+
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+body.login{
+    background: #3b3e40;
+}
+
+.login section{
+    text-align: center;
+    width: 300px;
+    margin: 200px auto 0 auto;
+}
+
+.login input{
+    border: 1px solid #323537;
+}
+
+.border-radius4{
+    border-radius: 4px;
+}
+
+.icon-logo{
+    font-size: 61px;
+    margin-top: 10%;
+}

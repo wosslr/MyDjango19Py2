@@ -1,0 +1,104 @@
+body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
+
+.navbar-static-top {
+    background: #212121;
+    margin-bottom: 6px;
+}
+
+.navbar-brand {
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 50px;
+    color: #fff;
+}
+
+.navbar-brand-padding{
+    padding-left: 25px;
+    padding-right: 10px;
+}
+
+.navbar-brand:hover{
+    color: #8a6d3b;
+}
+
+.main-nav {
+    margin-left: 1px;
+}
+
+.main-nav.nav.nav-tabs.nav-app > li{
+    float: none;
+}
+
+.main-nav.nav.nav-tabs.nav-app > li > a{
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #4A515B;
+    background: #E9E9E9;
+    background: -moz-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FAFAFA), color-stop(100%, #E9E9E9));
+    background: -webkit-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+    background: -o-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+    background: -ms-linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+    background: linear-gradient(top, #FAFAFA 0%, #E9E9E9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#E9E9E9')";
+    border: 1px solid #D5D5D5;
+    border-radius: 4px;
+}
+
+.submenu > li > a{
+    color: #4A515B;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.submenu > li > a:hover{
+    background: #6f7782;
+    color: white;
+}
+
+.supermenu.collapsed > span.glyphicon-collapse-toggle:before{
+    content: "\e259";
+}
+
+.supermenu > span.glyphicon-collapse-toggle:before{
+    content: "\e260";
+}
+
+.dropdown-menu-full-width{
+    width: 100%;
+}
+
+.dropdown-hover:hover > .dropdown-menu{
+    display: block;
+    position: absolute;
+    margin-top: 0;
+}
+
+.nav > li:hover > a{
+    color: #23527c;
+    background-color: #eee;
+    border-radius: 4px;
+}
+
+.red{
+    color: #dd5a43;
+}
+
+.orange{
+    color: #ff892a;
+}
+
+.white{
+    color: #fff;
+}
+
+.empty-form{
+    display: none;
+}
+
+.form-control-inline{
+    display: inline;
+    width: auto;
+}

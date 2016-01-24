@@ -1,0 +1,56 @@
+{% extends "housefinance/base.html" %}
+{% block title %}首页{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-11">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }} alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message.message }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-11">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title">
+                        记账凭证列表
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <p>记账凭证能有效帮助你记录日常的财务状况，并在计算报表的时候会使用到</p>
+                    <p><a href="{% url 'ffm:acc_doc_add' %}">创建一张凭证</a></p>
+                </div>
+                <table class="table table-bordered table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>日期</th>
+                        <th>成员</th>
+                        <th>备注</th>
+                    </tr>
+                    </thead>
+                    {% if account_doc_list %}
+                        <tbody>
+                        {% for account_doc in account_doc_list %}
+                            <tr>
+                                <td><a href="{% url 'ffm:acc_doc_detail' account_doc.id %}">{{ account_doc.id }}</a>
+                                </td>
+                                <td>{{ account_doc.creation_date }}</td>
+                                <td>{{ account_doc.creator }}</td>
+                                <td>{{ account_doc.comment }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    {% else %}
+                        <p class="alert-info">没有记账凭证存在</p>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

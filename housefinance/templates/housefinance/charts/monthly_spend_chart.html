@@ -1,0 +1,73 @@
+{% extends "housefinance/base.html" %}
+{% load staticfiles %}
+{% block title %}月支出统计{% endblock %}
+{% block mycss %}
+    <script src="{% static 'housefinance/js/echarts/echarts.min.js' %}"></script>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div id="chartContainer" style="width: 600px;height:400px;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            {% for key, period in periods.items %}
+                <p>{{ period.year }}年{{ period.month }}月</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block myjs %}
+    {#    <script src="{% static 'housefinance/js/echarts/echarts.min.js' %}"></script>#}
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('chartContainer'));
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '月消费统计'
+            },
+            tooltip: {},
+            legend: {
+                data: ['销量', 'test']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: [
+                    {% for chart_data in chart_data_set %}
+                        '{{ chart_data.date.year }}-{{ chart_data.date.month }}-{{ chart_data.date.day }}',
+                    {% endfor %}
+                ]
+            },
+            yAxis: {},
+            series: [{
+                name: '消费',
+                type: 'line',
+                smooth: true,
+                stack: 'a',
+                areaStyle: {
+                    normal: {}
+                },
+                data: [
+                    {% for chart_data in chart_data_set %}
+                        {{ chart_data.amount }},
+                    {% endfor %}
+
+                ]
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+{% endblock %}

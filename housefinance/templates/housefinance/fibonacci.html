@@ -1,0 +1,55 @@
+{% extends "housefinance/base.html" %}
+{% load staticfiles %}
+{% block title %}Fibonacci{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div id="chartContainer"></div>
+        </div>
+        <div class="col-md-2">
+            <button id="addDataPoint" class="btn btn-default btn-lg btn-block">Add DataPoint</button>
+        </div>
+    </div>
+{% endblock %}
+{% block myjs %}
+    <script src="{% static 'housefinance/js/canvasjs/jquery.canvasjs.min.js' %}"></script>
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "Fibonacci"
+                },
+                axisX: {
+                    tickLength: 0
+                },
+                data: [
+                    {
+                        type: "spline",
+                        showInLegend: true,
+                        dataPoints:[
+                            {% for fib in fibonacci %}
+                                {
+                                    x: {{ forloop.counter }},
+                                    toolTipContent: "<strong>{y}</strong>",
+                                    y: {{fib}}
+{#                                    label: "{{ acc_doc_item.document_header.comment }}"#}
+                                },
+                            {% endfor %}
+
+                        ]
+                    }
+                ]
+            });
+            chart.render();
+
+            $("#addDataPoint").click(function () {
+
+                var length = chart.options.data[0].dataPoints.length;
+                chart.options.data[0].dataPoints.push({y: 25 - Math.random() * 10});
+                chart.render();
+
+            });
+        }
+    </script>
+{% endblock %}

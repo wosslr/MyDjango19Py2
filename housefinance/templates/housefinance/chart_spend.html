@@ -1,0 +1,65 @@
+{% extends "housefinance/base.html" %}
+{% load staticfiles %}
+{% block title %}支出统计{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-8">
+            <div id="chartContainer"></div>
+        </div>
+        <div class="col-md-2">
+            <button id="addDataPoint" class="btn btn-default btn-lg btn-block">Add DataPoint</button>
+        </div>
+    </div>
+{% endblock %}
+{% block myjs %}
+    <script src="{% static 'housefinance/js/canvasjs/jquery.canvasjs.min.js' %}"></script>
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                title: {
+                    text: "消费支出统计"
+                },
+                axisX: {
+                    tickLength: 7,
+                    tickThickness: 0,
+                    labelAutoFit: true
+                },
+                data: [
+                    {
+                        type: "column",
+                        showInLegend: true,
+                        dataPoints:[
+                            {% for acc_doc_item in acc_doc_items %}
+                                {
+{#                                    x: new Date(#}
+{#                                            '{{ acc_doc_item.document_header.creation_date.year }}',#}
+{#                                            '{{ acc_doc_item.document_header.creation_date.month }}',#}
+{#                                            '{{ acc_doc_item.document_header.creation_date.day }}',#}
+{#                                            '{{ acc_doc_item.document_header.creation_date.hour }}',#}
+{#                                            '{{ acc_doc_item.document_header.creation_date.minute }}',#}
+{#                                            '{{ acc_doc_item.document_header.creation_date.second }}'#}
+{#                                    ),#}
+                                    x: {{ forloop.counter }},
+                                    toolTipContent: "{{ acc_doc_item.comment }} : <strong>{y}</strong>",
+                                    y: {{acc_doc_item.amount}},
+                                    label: "{{ acc_doc_item.comment }}"
+                                },
+                            {% endfor %}
+
+                        ]
+                    }
+                ]
+            });
+            chart.render();
+
+            $("#addDataPoint").click(function () {
+
+                var length = chart.options.data[0].dataPoints.length;
+                chart.options.data[0].dataPoints.push({y: 25 - Math.random() * 10});
+                chart.render();
+
+            });
+        }
+    </script>
+{% endblock %}

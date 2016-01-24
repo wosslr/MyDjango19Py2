@@ -1,0 +1,39 @@
+{% extends 'housefinance/base.html' %}
+{% block title %}
+    查看记账凭证
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-11">
+            <p>Header:</p>
+            <p>{{ account_doc.creation_date }}</p>
+            <p>{{ account_doc.creator }}</p>
+            <p>{{ account_doc.comment }}</p>
+            <p>Items:</p>
+            <ul>
+                {% for account_item in account_doc.accountingdocumentitem_set.all %}
+                    <li>{{ account_item.account }}&nbsp;-&nbsp;{{ account_item.amount }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#<p>Header:</p>#}
+{#<p>{{ account_doc.creation_date }}</p>#}
+{#<p>{{ account_doc.creator }}</p>#}
+{#<p>{{ account_doc.comment }}</p>#}
+{#<p>Items:</p>#}
+{#<ul>#}
+{#{% for account_item in account_doc.accountingdocumentitem_set.all %}#}
+{#    <li>{{ account_item.account }}&nbsp;-&nbsp;{{ account_item.amount }}</li>#}
+{#{% endfor %}#}
+{#</ul>#}
+{#</body>#}
+{#</html>#}
