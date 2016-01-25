@@ -5,7 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.generic.base import View
 import hashlib
 
-from .helpers import WechatMessage
+from .helpers import WechatMessage, AccountingDocumentUtility
 # Create your views here.
 
 
@@ -30,7 +30,8 @@ class IndexView(View):
 
     def post(self, request, *args, **kwargs):
         wechat = WechatMessage(request.body)
-        return HttpResponse(wechat.reply(wechat.msg_content))
+        reply_msg = AccountingDocumentUtility.create_acc_doc_by_msg(wechat.msg_content)
+        return HttpResponse(wechat.reply(reply_msg))
 
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
