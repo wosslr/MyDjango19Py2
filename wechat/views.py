@@ -29,8 +29,8 @@ class IndexView(View):
         return HttpResponse('signature check failed')
 
     def post(self, request, *args, **kwargs):
-        WechatMessage().parse_message(request.body)
-        return HttpResponse('success')
+        wechat = WechatMessage(request.body)
+        return HttpResponse(wechat.reply(wechat.msg_content))
 
     @csrf_exempt
     def dispatch(self, request, *args, **kwargs):
