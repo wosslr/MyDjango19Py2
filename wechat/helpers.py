@@ -4,6 +4,9 @@ import sys
 reload(sys)
 sys.setdefaultencoding("utf-8")
 import re
+
+import requests
+
 import xmltodict
 from django.utils import timezone
 
@@ -52,7 +55,7 @@ class WechatMessage:
 
 class AccountingDocumentUtility:
     @staticmethod
-    def create_acc_doc_by_msg(p_message):
+    def create_acc_doc_by_msg(p_message, p_userid):
         p_wechat_message = str(p_message)
         acc_doc_header = AccountingDocumentHeader()
         acc_doc_item_j = AccountingDocumentItem()
@@ -71,17 +74,21 @@ class AccountingDocumentUtility:
                 return date_list[0].encode() + '天?'
             comment_list = re.findall(r'天(.+?)[0-9].+?元', p_wechat_message)
 
-        if len(comment_list) == 0:
-            return '怎么花的钱?'.encode()
-        else:
-            acc_doc_header.comment = comment_list[0].encode()
-
         amount_list = re.findall(r'([0-9].+?)元', p_wechat_message)
+
+        if len(comment_list) == 0 and len(amount_list) == 0:
+            return WebAPIRobot.call_robot(info=p_wechat_message, userid=p_userid)
+
         if len(amount_list) == 0:
             return '花了多少钱?'.encode()
         else:
             acc_doc_item_j.amount = int(amount_list[0])
             acc_doc_item_d.amount = int(amount_list[0])
+
+        if len(comment_list) == 0:
+            return '怎么花的钱?'.encode()
+        else:
+            acc_doc_header.comment = comment_list[0].encode()
 
         resource_list = re.findall(r'元(.+?)$', p_wechat_message)
         if len(resource_list) == 0:
@@ -111,3 +118,19 @@ class AccountingDocumentUtility:
         acc_doc_item_d.save()
 
         return '凭证 ' + acc_doc_header.__str__() + ' 创建成功'
+
+
+class WebAPIRobot:
+    @staticmethod
+    def call_robot(info, userid):
+        api_url = 'http://apis.baidu.com/turing/turing/turing'
+        headers = {
+            'apikey': '9f3a85406b0e6180b88ef91327ff1df7'
+        }
+        query_params = {
+            'key': '879a6cb3afb84dbf4fc84a1df2ab7319',
+            'info': info,
+            'userid': userid
+        }
+        response = requests.request('GET', api_url, headers=headers, params=query_params)
+        return response.json()['showtext']

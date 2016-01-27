@@ -30,7 +30,7 @@ class IndexView(View):
 
     def post(self, request, *args, **kwargs):
         wechat = WechatMessage(request.body)
-        reply_msg = AccountingDocumentUtility.create_acc_doc_by_msg(wechat.msg_content)
+        reply_msg = AccountingDocumentUtility.create_acc_doc_by_msg(p_message=wechat.msg_content, p_userid=wechat.sender)
         return HttpResponse(wechat.reply(reply_msg))
 
     @csrf_exempt
