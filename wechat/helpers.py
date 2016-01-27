@@ -62,7 +62,7 @@ class AccountingDocumentUtility:
         acc_doc_item_d = AccountingDocumentItem()
 
         date_list = re.findall('^(.+?)天', p_wechat_message)
-        comment_list = re.findall(r'^(.+?)[0-9].+?元', p_wechat_message)
+        comment_list = re.findall(r'天(.+?)[0-9].+?元', p_wechat_message)
         if len(date_list) == 0:
             acc_doc_header.creation_date = timezone.now()
             # comment_list = re.findall(r'^(.+?)[0-9].+?元', p_wechat_message)
