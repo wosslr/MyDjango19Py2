@@ -62,21 +62,23 @@ class AccountingDocumentUtility:
         acc_doc_item_d = AccountingDocumentItem()
 
         date_list = re.findall('^(.+?)天', p_wechat_message)
-        if len(date_list) == 0:
-            acc_doc_header.creation_date = timezone.now()
-            comment_list = re.findall(r'^(.+?)[0-9].+?元', p_wechat_message)
-        else:
-            if date_list[0] == '今':
-                acc_doc_header.creation_date = timezone.now()
-            elif date_list[0] == '昨':
-                acc_doc_header.creation_date = timezone.now().replace(day=-1)
-            else:
-                return date_list[0].encode() + '天?'
-            comment_list = re.findall(r'天(.+?)[0-9].+?元', p_wechat_message)
+        comment_list = re.findall(r'^(.+?)[0-9].+?元', p_wechat_message)
+        # if len(date_list) == 0:
+        #     acc_doc_header.creation_date = timezone.now()
+        #     comment_list = re.findall(r'^(.+?)[0-9].+?元', p_wechat_message)
+        # else:
+        #     if date_list[0] == '今':
+        #         acc_doc_header.creation_date = timezone.now()
+        #     elif date_list[0] == '昨':
+        #         acc_doc_header.creation_date = timezone.now().replace(day=-1)
+        #     else:
+        #         return date_list[0].encode() + '天?'
+        #     comment_list = re.findall(r'天(.+?)[0-9].+?元', p_wechat_message)
 
         amount_list = re.findall(r'([0-9].+?)元', p_wechat_message)
+        resource_list = re.findall(r'元(.+?)$', p_wechat_message)
 
-        if len(comment_list) == 0 and len(amount_list) == 0:
+        if not (len(date_list) != 0 and len(comment_list) != 0 and len(amount_list) != 0 and len(resource_list) != 0):
             return WebAPIRobot.call_robot(info=p_wechat_message, userid=p_userid)
 
         if len(amount_list) == 0:
@@ -90,7 +92,6 @@ class AccountingDocumentUtility:
         else:
             acc_doc_header.comment = comment_list[0].encode()
 
-        resource_list = re.findall(r'元(.+?)$', p_wechat_message)
         if len(resource_list) == 0:
             account_name_d = '现金'
         else:
