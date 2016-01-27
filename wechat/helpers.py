@@ -63,17 +63,17 @@ class AccountingDocumentUtility:
 
         date_list = re.findall('^(.+?)天', p_wechat_message)
         comment_list = re.findall(r'^(.+?)[0-9].+?元', p_wechat_message)
-        # if len(date_list) == 0:
-        #     acc_doc_header.creation_date = timezone.now()
-        #     comment_list = re.findall(r'^(.+?)[0-9].+?元', p_wechat_message)
-        # else:
-        #     if date_list[0] == '今':
-        #         acc_doc_header.creation_date = timezone.now()
-        #     elif date_list[0] == '昨':
-        #         acc_doc_header.creation_date = timezone.now().replace(day=-1)
-        #     else:
-        #         return date_list[0].encode() + '天?'
-        #     comment_list = re.findall(r'天(.+?)[0-9].+?元', p_wechat_message)
+        if len(date_list) == 0:
+            acc_doc_header.creation_date = timezone.now()
+            # comment_list = re.findall(r'^(.+?)[0-9].+?元', p_wechat_message)
+        else:
+            if date_list[0] == '今':
+                acc_doc_header.creation_date = timezone.now()
+            elif date_list[0] == '昨':
+                acc_doc_header.creation_date = timezone.now().replace(day=-1)
+            # else:
+            #     return date_list[0].encode() + '天?'
+            # comment_list = re.findall(r'天(.+?)[0-9].+?元', p_wechat_message)
 
         amount_list = re.findall(r'([0-9].+?)元', p_wechat_message)
         resource_list = re.findall(r'元(.+?)$', p_wechat_message)
@@ -118,7 +118,7 @@ class AccountingDocumentUtility:
         acc_doc_item_j.save()
         acc_doc_item_d.save()
 
-        return '凭证 ' + acc_doc_header.__str__() + ' 创建成功'
+        return '好的，今天又记了一笔账 ' + acc_doc_header.__str__()
 
 
 class WebAPIRobot:
