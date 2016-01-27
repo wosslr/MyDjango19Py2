@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.contrib.auth.models import User as SysUser
 
 # Create your models here.
 
@@ -10,6 +11,7 @@ class User(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     user_role = models.CharField(max_length=10, blank=True)
+    sys_user = models.OneToOneField(SysUser, blank=True)
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
