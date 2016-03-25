@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'datetimewidget',
     'housefinance',
     'account',
-    'wechat'
+    'wechat',
+    'home',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -93,7 +94,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'ffm',
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': '654321',
     }
     # 'default': {
     #     'ENGINE': 'django.db.backends.sqlite3',

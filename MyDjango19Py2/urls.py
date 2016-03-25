@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^account/', include('account.urls', namespace='account')),
     url(r'^wechat/', include('wechat.urls', namespace='wechat')),
     url(r'^admin/', admin.site.urls),
+    url(r'^$', include('home.urls', namespace='home')),
 ]
