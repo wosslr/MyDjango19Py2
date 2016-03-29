@@ -1,0 +1,10 @@
+{% extends "housefinance/base.html" %}
+{% load staticfiles %}
+{% block title %}记账凭证导入{% endblock %}
+{% block content %}
+    <form method='post' enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="txt_file"/>
+        <input type="submit" value="Upload"/>
+    </form>
+{% endblock %}
