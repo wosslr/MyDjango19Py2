@@ -1,0 +1,20 @@
+{% extends "housefinance/base.html" %}
+{% load staticfiles %}
+{% block title %}记账凭证导入{% endblock %}
+{% block content %}
+    <ul>
+        {% for acc_doc in acc_docs %}
+            <li>
+                {{ acc_doc }}
+                <ul>
+                    {% for acc_doc_item in acc_doc_items %}
+                        {% ifequal acc_doc_item.document_header acc_doc %}
+                            <li>{{ acc_doc_item.dc_indicator }} / {{ acc_doc_item.account }} / {{ acc_doc_item.amount }}</li>
+                        {% endifequal %}
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+
+    </ul>
+{% endblock %}
