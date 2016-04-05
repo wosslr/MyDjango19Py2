@@ -82,7 +82,6 @@ class AccountingDocumentCreateView(generic.CreateView):
                     # formset=formset
             ))
         acc_doc_header = form.save(commit=False)
-        print acc_doc_header.creation_date
         formset = AccountingDocumentItemFormSet(request.POST, instance=acc_doc_header)
         # context = {'form': form,
         #            'formset': formset}

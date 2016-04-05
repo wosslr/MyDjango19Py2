@@ -9,6 +9,7 @@ from django.template.context_processors import csrf
 from datetime import datetime
 
 from .models import AccountingDocumentHeader, AccountingDocumentItem, Account, User
+from .forms import AccountingDocumentFormSet
 
 
 @login_required(login_url=LOGIN_URL)
@@ -53,6 +54,8 @@ def batch_import_zfb(request):
                     start_flag = True
                     break
 
+        acc_doc_formset = AccountingDocumentFormSet(instance=accountingDocuments)
+        print(acc_doc_formset)
         context = {}
         context['acc_docs'] = accountingDocuments
         context['acc_doc_items']  =accountingDocumentItems

@@ -1,4 +1,4 @@
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, formset_factory, modelformset_factory
 from .models import AccountingDocumentHeader, AccountingDocumentItem
 from django.forms.models import inlineformset_factory, BaseInlineFormSet
 from datetimewidget.widgets import DateTimeWidget
@@ -13,6 +13,7 @@ class AccountingDocumentForm(ModelForm):
             'creation_date': DateTimeWidget(options=dateTimeOptions)
         }
 
+AccountingDocumentFormSet = modelformset_factory(AccountingDocumentHeader, form=AccountingDocumentForm, extra=0)
 
 AccountingDocumentItemFormSet = inlineformset_factory(model=AccountingDocumentItem,
                                                       parent_model=AccountingDocumentHeader,
