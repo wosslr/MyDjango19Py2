@@ -5,6 +5,7 @@ from .constants import LOGIN_URL
 
 from django.shortcuts import render, render_to_response
 from django.template.context_processors import csrf
+from django.template import RequestContext
 
 from datetime import datetime
 
@@ -55,9 +56,15 @@ def batch_import_zfb_upload(request):
                     break
 
         context = {}
+        context.update(csrf(request))
         context['acc_docs'] = accountingDocuments
         return render_to_response(template_name='housefinance/batch_import/batch_import_zfb_step2.html', context=context)
     elif request.method == 'GET':
         context = {}
         context.update(csrf(request))
         return render_to_response(template_name='housefinance/batch_import/batch_import_zfb_step1.html', context=context)
+
+
+@login_required(login_url=LOGIN_URL)
+def batch_import_acc_doc_import(request):
+    print(dir(request.POST))

@@ -12,4 +12,5 @@ urlpatterns = [
     url(r'^fibonacci/(?P<m>[0-9]+)$', views.fibonacci, name='fibonacci'),
     url(r'^chart_spend_monthly/$', views.chart_spend_monthly, name='chart_spend_monthly'),
     url(r'^batch_import_acc_doc_upload/$', batch_import_views.batch_import_zfb_upload, name='batch_import_zfb_upload'),
+    url(r'^batch_import_acc_doc_import/$', batch_import_views.batch_import_acc_doc_import, name='batch_import_acc_doc_import'),
 ]
