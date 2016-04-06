@@ -143,7 +143,6 @@ def fibonacci(request, m):
 
 @login_required(login_url=LOGIN_URL)
 def chart_spend_monthly(request):
-    print(request.GET)
     context = dict()
     context['periods'] = ChartSpendMonthlyHelper.get_periods()
     context['chart_data_set'] = ChartSpendMonthlyHelper.get_spend_data_by_month(2016, 1)
