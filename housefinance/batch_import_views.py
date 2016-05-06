@@ -6,11 +6,18 @@ from .constants import LOGIN_URL
 from django.shortcuts import render, render_to_response
 from django.template.context_processors import csrf
 from django.template import RequestContext
+from django.views.generic import View
 
 from datetime import datetime
 
 from .models import AccountingDocumentHeader, AccountingDocumentItem, Account, User
 from .forms import AccountingDocumentFormSet
+
+
+class ZFBImportView(View):
+    @method_decorator(login_required(login_url=LOGIN_URL))
+    def dispatch(self, request, *args, **kwargs):
+        return super(ZFBImportView, self).dispatch(request, *args, **kwargs)
 
 
 @login_required(login_url=LOGIN_URL)
