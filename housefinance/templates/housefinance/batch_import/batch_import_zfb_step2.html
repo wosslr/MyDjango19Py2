@@ -2,7 +2,8 @@
 {% load staticfiles %}
 {% block title %}记账凭证导入{% endblock %}
 {% block content %}
-    <form role="form" action="{% url 'ffm:batch_import_acc_doc_import' %}" method="post">
+{#    <form role="form" action="{% url 'ffm:batch_import_acc_doc_import' %}" method="post">#}
+    <form role="form" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <ul>
         {% for acc_doc in acc_docs %}
