@@ -9,6 +9,7 @@
         {% for acc_doc in acc_docs %}
             <li>
                 {{ acc_doc.header }}
+                <input type="hidden" name="acc_doc_{{ forloop.counter }}_creation_date" value="{{ acc_doc.header.creation_date|date:"Y-m-d H:i:s" }}"/>
                 <ul>
                     {% for acc_doc_item in acc_doc.items %}
                         <li>{{ acc_doc_item.dc_indicator }} / {{ acc_doc_item.account }} / {{ acc_doc_item.amount }}</li>

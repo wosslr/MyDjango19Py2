@@ -71,7 +71,7 @@ class ZFBImportView(View):
             return render_to_response(template_name='housefinance/batch_import/batch_import_zfb_step2.html', context=context)
         else:
             print(dir(request.POST))
-            print(request.POST.get('test'))
+            print(request.POST.get('acc_doc_2_creation_date'))
             return self.get(request, *args, **kwargs)
 
 
