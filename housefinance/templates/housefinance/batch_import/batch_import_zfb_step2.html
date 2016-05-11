@@ -2,22 +2,52 @@
 {% load staticfiles %}
 {% block title %}记账凭证导入{% endblock %}
 {% block content %}
-{#    <form role="form" action="{% url 'ffm:batch_import_acc_doc_import' %}" method="post">#}
+    {#    <form role="form" action="{% url 'ffm:batch_import_acc_doc_import' %}" method="post">#}
     <form role="form" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <ul>
-        {% for acc_doc in acc_docs %}
-            <li>
-                {{ acc_doc.header }}
-                <input type="hidden" name="acc_doc_{{ forloop.counter }}_creation_date" value="{{ acc_doc.header.creation_date|date:"Y-m-d H:i:s" }}"/>
-                <ul>
-                    {% for acc_doc_item in acc_doc.items %}
-                        <li>{{ acc_doc_item.dc_indicator }} / {{ acc_doc_item.account }} / {{ acc_doc_item.amount }}</li>
-                    {% endfor %}
-                </ul>
-            </li>
-        {% endfor %}
-    </ul>
-    <input class="btn btn-primary" type="submit" value="Import"/>
+        {% csrf_token %}
+        <input type="hidden" name="step" value="IMPORT"/>
+        <table class="table table-striped table-bordered table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>选择</th>
+                <th>记账凭证</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for acc_doc in acc_docs %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="acc_doc_{{ forloop.counter }}_checkbox" checked="checked"/>
+                    </td>
+                    <td>
+                        <li>
+                            {{ acc_doc.header }}
+                            <input type="hidden" name="acc_doc_{{ forloop.counter }}_creation_date"
+                                   value="{{ acc_doc.header.creation_date|date:"Y-m-d H:i:s" }}"/>
+                            <input type="hidden" name="acc_doc_{{ forloop.counter }}_comment"
+                                   value="{{ acc_doc.header.comment }}"/>
+                            <input type="hidden" name="acc_doc_{{ forloop.counter }}" value="{{ acc_doc.header }}"/>
+                            <ul>
+                                {% for acc_doc_item in acc_doc.items %}
+                                    <li>{{ acc_doc_item.dc_indicator }} / {{ acc_doc_item.account }}
+                                        / {{ acc_doc_item.amount }}</li>
+                                    <input type="hidden"
+                                           name="acc_doc_item_{{ forloop.parentloop.counter }}_{{ forloop.counter }}_dc_indicator"
+                                           value="{{ acc_doc_item.dc_indicator }}"/>
+                                    <input type="hidden"
+                                           name="acc_doc_item_{{ forloop.parentloop.counter }}_{{ forloop.counter }}_amount"
+                                           value="{{ acc_doc_item.amount }}"/>
+                                    <input type="hidden"
+                                           name="acc_doc_item_{{ forloop.parentloop.counter }}_{{ forloop.counter }}_account_type"
+                                           value="{{ acc_doc_item.account.account_type }}"/>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <input class="btn btn-primary" type="submit" value="Import"/>
     </form>
 {% endblock %}

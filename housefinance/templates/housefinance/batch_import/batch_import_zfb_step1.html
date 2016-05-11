@@ -4,6 +4,7 @@
 {% block content %}
     <form method='post' enctype="multipart/form-data">
         {% csrf_token %}
+        <input type="hidden" name="step" value="UPLOAD" />
         <input type="file" name="txt_file"/>
         <input type="submit" value="Upload"/>
     </form>
