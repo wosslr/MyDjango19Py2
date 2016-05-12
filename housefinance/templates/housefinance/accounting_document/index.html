@@ -31,6 +31,7 @@
                         <th>编号</th>
                         <th>日期</th>
                         <th>成员</th>
+                        <th>金额</th>
                         <th>备注</th>
                     </tr>
                     </thead>
@@ -42,6 +43,7 @@
                                 </td>
                                 <td>{{ account_doc.creation_date }}</td>
                                 <td>{{ account_doc.creator }}</td>
+                                <td><strong>{{ account_doc.get_total_amount }}</strong></td>
                                 <td>{{ account_doc.comment }}</td>
                             </tr>
                         {% endfor %}

@@ -41,6 +41,13 @@ class AccountingDocumentHeader(models.Model):
     def __str__(self):
         return self.creation_date.date().__str__() + ' ' + self.id.__str__() + ' ' + self.comment
 
+    def get_total_amount(self):
+        total_amount = 0
+        for acc_doc_item in self.accountingdocumentitem_set.all():
+            total_amount += acc_doc_item.amount
+        return total_amount
+    get_total_amount.short_description = '金额'
+
 
 
 class AccountingDocumentItem(models.Model):

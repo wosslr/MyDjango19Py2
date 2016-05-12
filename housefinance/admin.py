@@ -21,7 +21,7 @@ class AccountingDocumentAdmin(admin.ModelAdmin):
         ('Comment', {'fields': ['comment']})
     ]
     inlines = [AccountingDocumentItemInline]
-    list_display = ('creation_date', 'creator', 'comment')
+    list_display = ('creation_date', 'creator', 'get_total_amount', 'comment')
     list_filter = ['creation_date']
     search_fields = ['comment']
 

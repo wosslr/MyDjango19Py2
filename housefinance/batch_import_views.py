@@ -70,12 +70,7 @@ class ZFBImportView(View):
             context['acc_docs'] = accountingDocuments
             return render_to_response(template_name='housefinance/batch_import/batch_import_zfb_step2.html', context=context)
         elif import_step == 'IMPORT':
-            print(dir(request.POST))
-            print(request.POST.get('acc_doc_2_creation_date'))
-            print(request.POST.get('acc_doc_2_checkbox'))
-
             index_tmp = 1
-
             while True:
                 if request.POST.get(''.join(['acc_doc_', str(index_tmp)])) is None:
                     break
