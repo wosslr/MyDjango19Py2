@@ -45,6 +45,9 @@ class AccountingDocumentAdmin(admin.ModelAdmin):
     def save_form(self, request, form, change):
         return form.save(commit=False)
 
+class AccountAdmin(admin.ModelAdmin):
+    list_display = ('account_name', 'account_type')
+
 admin.site.register(AccountingDocumentHeader, AccountingDocumentAdmin)
 admin.site.register(User)
-admin.site.register(Account)
+admin.site.register(Account, AccountAdmin)
